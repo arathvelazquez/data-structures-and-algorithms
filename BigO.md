@@ -402,6 +402,20 @@ For this code, my first approach was O(a) since we have the *while* based on A b
 
 Fundamentally, Big O is an equation that expresses how the runtime changes, hot it scales.
 
+### Additional Examples
+
+|Big O|Name|Description|Example|
+|:-:|:-:|:-|:-|
+| O(1) | Constant |  <b>This is the best</b>. The algorithm always takes the same amount of time, regardless of how much data there is. |Looking up an element of an array by its index.<pre>let value = array[5]</pre>|
+| O(log n) | Logarithmic |  <b>Pretty great.</b> These kind of algorithms halve the amount of data with each iteration. If you have 100 items, it takes about 7 steps to find the answer. With 1,000 items, it takes 10 steps. And 1,000,000 items only takes 20 steps. This is super fast even for large amounts of data. |Binary search Algorithm|
+| O(n) | Linear |  <b>Good performance.</b> If you have 100 items, this does 100 units of work. Doubling the number of items makes the algorithm take exactly twice as long (200 units of work).|Sequential search|
+| O(n log n) | "Linearithmic" |  <b>Decent performance.</b> This is slightly worse than linear but not too bad. |The fastest general-purpose sorting algorithms|
+| O(n<sup>2</sup>) | Quadratic |  <b>Kinda slow.</b> If you have 100 items, this does 100<sup>2</sup> = 10,000 units of work. Doubling the number of items makes it four times slower (because 2 squared equals 4).|Algorithms using nested loops, such as insertion sort|
+| O(n<sup>3</sup>) | Cubic |  <b>Poor performance.</b> If you have 100 items, this does 100<sup>3</sup> = 1,000,000 units of work. Doubling the input size makes it eight times slower. |Matrix multiplication|
+| O(2<sup>n</sup>) | Exponential |  <b>Very poor performance.</b> You want to avoid these kinds of agorithms, but sometimes you have no choice. Adding just one bit to the input doubles the running time. | Recursive calculation of Fibonacci numbers|
+| O(n!) | Factorial |  <b>Intolerable slow.</b> It literally tales a millon years to do anything. |Traveling salesperson problem|
+
+
 References:
 
 Big O Notation: https://www.youtube.com/watch?v=v4cd1O4zkGw
