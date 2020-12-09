@@ -1,5 +1,7 @@
 # Big O
 
+<sub>Extracted from Cracking the Coding Interview.</sub>
+
 Big O time is the language and metric we use to describe the efficiency of algorithms.
 Every developer should master this concept.
 
@@ -82,7 +84,49 @@ If your algorithm is in the form: *"do this for each time you do that"*, then yo
 
 **Log N Runtimes**
 
-*pending...*
+We start off with an N-element array to search. Then, after a single step, we're down to n/2 elements. One more step, and we're down to n/4 elements. We stop when we either find the value or we're down to just one element.
+
+Example:
+
+<pre>
+  search 9 within {1, 5, 8, 9, 11, 13, 15, 19, 21}
+    compare 9 to 11 -> smaller
+    search 9 within {1, 5, 8, 9}
+      compare 9 to 8 -> bigger
+      search 9 within {9, 11}
+        compare 9 to 9
+        return
+</pre>
+
+*The total runtime is then a matter of how many steps (dividing N by 2 each time) we can take until N becomes 1.*
+
+
+|N| N divide by 2|
+|:-:|:-:|:-:|:-:|
+| 16 |  8 |
+| 8 |  4 |
+| 4 |  2 |
+| 2 |  1 |
+
+We could look at this in reverse (going from 1 to 16 instead of 16 to 1). How many times we can multiply 1 by 2 until we get N?
+
+|N| N multiply by 2|
+|:-:|:-:|:-:|:-:|
+| 1 |  2 |
+| 2 |  4 |
+| 4 |  8 |
+| 8 |  16 |
+
+What is k in the expression 2<sup>k</sup> = N? This is exactly what *log* expresses.
+
+2<sup>4</sup> = 16 ––> log<sub>2</sub> 16 = 4
+
+log<sub>2</sub> N = k ––> 2<sup>k</sup> = N
+
+When you see a problem where the number of elements in the problem space gets halved each time, that will likely be a O(log N) runtime.
+
+This is the same reason why finding an element in a balanced binary search tree is O(lon N). With each comparison, we go either left or right. Half the nodes are on each side, so we cut the problem space in half each time.
+
 
 **Recursive Runtimes**
 
@@ -113,6 +157,13 @@ The *space* complexity of this algorithm will be O(N). Although we have O(2<sup>
       return sum;
     }
 
+*Solution: O(b). The for loop just iterates through b.*
+
+My notes:
+
+Even if we are working with two values, the only time complexity is occurring for b.
+
+---
 
 2- The following code computes a<sup>b</sup>. What is its runtime?
 
@@ -126,6 +177,30 @@ The *space* complexity of this algorithm will be O(N). Although we have O(2<sup>
       }
     }
 
+*Solution: O(b). The recursive code iterates through b calls, since it substracts one at each level.*
+
+My notes:
+
+This one looks a little tricky for the recursive call, however, in this case is only decrementing thru b.
+
+*Example:*
+
+<pre>
+    5<sup>5</sup> =
+      5 * power(5, 4) *
+        5 * power(5, 3) *
+          5 * power(5, 2) *
+            5 * power(5, 1) *
+                5 * power(5, 0) =
+                5 * 1 = 1 *
+            5 * 5 = 25 *
+          5 * 25 = 125 *
+        5 * 125 = 625 *\
+      5 * 625 = 3125
+</pre>
+
+---
+
 3- The following code computes a % b. What is its runtime?
 
     int mod(int a, int b) {
@@ -135,6 +210,22 @@ The *space* complexity of this algorithm will be O(N). Although we have O(2<sup>
       int div = a / b;
       return a - div * b;
     }
+
+*Solution: O(1). It does a constant amount of work*
+
+My notes:
+
+The effort here is constant and the time complexity is not altered by the input. It's a single operation.
+
+Example:
+
+|Example|a|b|div|result (a - (div * 8 ))|
+|:-:|:-:|:-:|:-:|:-:|
+| 1 | 11 |  5 | int 2 | 1 |
+| 2 | 14 |  5 | int 2 | 4 |
+| 3 | 14 |  3 | int 4 | 2 |
+
+---
 
 4- The following code performs integer division. What is the runtime (assume a and b are both positives)?
 
@@ -148,8 +239,15 @@ The *space* complexity of this algorithm will be O(N). Although we have O(2<sup>
       return count;
     }
 
-5- The following code computes the [integer] square root of a number. If the number is not a perfect square (there is no integer square root), then it returns -1. It does this by succesive guessing. If n is 100, it first guesses 50. Too high? Try something lower – halfway between 1 and 50. What is its runtime?
+*Solution: O(a/b). The variable "count" will eventually equal a/b. The while loop iterates "count" times. Therefore, it iterates a/b times.*
 
+My notes:
+
+For this code, my first approach was O(a) since we have the *while* based on A but it's not constant. In this case, the runtime will be based on how many times we run the operation inside the *while* so, it will run a divided by b: O(a/b).
+
+---
+
+5- The following code computes the [integer] square root of a number. If the number is not a perfect square (there is no integer square root), then it returns -1. It does this by succesive guessing. If n is 100, it first guesses 50. Too high? Try something lower – halfway between 1 and 50. What is its runtime?
 
     int sqrt(int n) {
       return sqrt_helper(1, n, 1);
@@ -170,6 +268,10 @@ The *space* complexity of this algorithm will be O(N). Although we have O(2<sup>
       }
     }
 
+*Solution: O(log N). This algorithm is essentially doing a binary search to find the sqaure root. Therefore, the runtime is O(log N)*
+
+---
+
 6- The following code computes the [integer] square root of a number. If the number is not a perfect square (there is no integer square root), then it returns -1. It does this by trying to increasingly large numbers until it finds the right value (or is too high). What is its runtime?
 
     int sqrt(int n) {
@@ -181,16 +283,28 @@ The *space* complexity of this algorithm will be O(N). Although we have O(2<sup>
       return -1;
     }
 
+*Solution: O(sqrt(n)). This is just a straightforward loop that stops when "guess * guess > n" (or, in other words, when "guess > sqrt(n)" ).*
+
+---
+
 7- If a binary search tree is not balanced, how long might it take (worst case) to find an element in it?
 
+*Solution: O(n), where n is the number of nodes in the tree. The max time to find an element is the depth tree. The tree could be a straight list downwards and have depth n.*
+
+---
+
 8- You are looking for a specific value in a binary tree, but the tree is not a binary search tree. What is the time complexity of this?
+
+*Solution: O(n). Without any ordering property on the nodes, we might have to search through all the nodes.*
+
+---
 
 9- The *appendToNew* method appends a value to an array by creating a new, longer array and returning this longer array. You've used the *appendToNew* method to create a *copyArray* function that repeatedly calls *appendToNew*. How long does copying an array take?
 
     int[] copyArray(int[] array) {
       int[] copy = new int[0]
       for (int value: array) {
-        copy = appentToNew(copy, value);
+        copy = appendToNew(copy, value);
       } 
       return copy;
     }
@@ -198,7 +312,7 @@ The *space* complexity of this algorithm will be O(N). Although we have O(2<sup>
     int[] appendToNew(int[] array, int value) {
       // copy all elements over the new array
       int[] bigger = new int[array.length + 1];
-      for (int = 0; i < array.length; i++) {
+      for (int i = 0; i < array.length; i++) {
         bigger[i] = array[i];
       }
 
@@ -206,6 +320,10 @@ The *space* complexity of this algorithm will be O(N). Although we have O(2<sup>
       bigger[bigger.length -1] = value;
       return bigger;
     }
+
+*Solution: O(n<sup>2</sup>), where n is th number of elements in the array. The first call to appendToNew takes 1 copy. The second call takes 2 copies. The third call takes 3 copies. And so on. The total time will be the sum of 1 through n, which is O(n<sup>2</sup>).*
+
+---
 
 10- Code sums the digits in a number. What is its big O time?
 
@@ -219,6 +337,10 @@ The *space* complexity of this algorithm will be O(N). Although we have O(2<sup>
 
       return sum;
     }
+
+*Solution: O(log n). The runtime will be the number of digits in the number. A number with d digits can have a value up to 10<sup>d</sup>. If n = 10<sup>d</sup>, then d = = log n. Therefore, the runtime is O(log n).*
+
+---
 
 11- The following code prints all strings of length K where the characters are in sorted order. It does this by generating all strings of length K and then checking if each is sorted. What is its runtime?
 
@@ -256,7 +378,11 @@ The *space* complexity of this algorithm will be O(N). Although we have O(2<sup>
       return (char) ( ( (int) 'a') + i);
     }
 
-12- The following code computes the intersection (the number of elements in common) of two arrays. It assumes that neither array has duplicates.It computes the intersection by sorting one array (array b) and then iterating through array *a* checking (via binary search) if each value is in *b*. What is its runtime?
+*Solution: O(kc<sup>k</sup>), where k is the length of the string and c is the number of characters in the alphabet. It takes O(c<sup>k</sup>) time to generate each string. Then, we need to check that each of these is sorted, which takes O(k) time.*
+
+---
+
+12- The following code computes the intersection (the number of elements in common) of two arrays. It assumes that neither array has duplicates. It computes the intersection by sorting one array (array b) and then iterating through array *a* checking (via binary search) if each value is in *b*. What is its runtime?
 
     int intersection(int[] a, int[] b) {
       mergeSort(b);
@@ -271,3 +397,11 @@ The *space* complexity of this algorithm will be O(N). Although we have O(2<sup>
 
       return intersect;
     }
+
+*Solution: O( b log b + a log b). First, we have to sort array b, which takes O(b log b) time. Then, for each element in a, we do binary search in O(log b) time. The second part takes O(a log b) time.*
+
+Fundamentally, Big O is an equation that expresses how the runtime changes, hot it scales.
+
+References:
+
+Big O Notation: https://www.youtube.com/watch?v=v4cd1O4zkGw
