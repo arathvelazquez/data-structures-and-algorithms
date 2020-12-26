@@ -92,5 +92,8 @@ priorityQueue.enqueue(['Data 3', 3]);
 priorityQueue.enqueue(['Data 2', 2]);
 priorityQueue.enqueue(['Data 0', 0]);
 priorityQueue.print();
-// Result of priorityQueue:
 // [ [ 'Data 0', 0 ], [ 'Data 1', 1 ], [ 'Data 2', 2 ], [ 'Data 3', 3 ] ]
+priorityQueue.dequeue();
+priorityQueue.print();
+// Result of priorityQueue:
+// [ [ 'Data 1', 1 ], [ 'Data 2', 2 ], [ 'Data 3', 3 ] ]
