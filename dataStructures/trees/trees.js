@@ -103,11 +103,12 @@ class BST {
     console.log(`Pre Order Traversal`);
 
     let current = this.root;
+    let result = new Array();
 
     if (current) {
       const preOrder = function(node) {
 
-        console.log(node.value);
+        result.push(node.value);
         if (node.left !== null) {
           preOrder(node.left);
         } 
@@ -117,7 +118,8 @@ class BST {
 
       }
 
-      return preOrder(current);
+      preOrder(current);
+      return result;
     }
   }
 
@@ -126,6 +128,7 @@ class BST {
   inOrderTraversal() {
     console.log(`In Order traversal: `);
     let current = this.root;
+    let result = new Array();
 
     if (current) {
       const inOrder = function(node) {
@@ -133,13 +136,13 @@ class BST {
         if (node.left !== null) {
           inOrder(node.left)
         }
-        console.log(node.value);
+        result.push(node.value);
         if (node.right !== null) {
           inOrder(node.right);
         }
       }
-
-      return inOrder(current);
+      inOrder(current);
+      return result;
     }
   }
 
@@ -147,6 +150,7 @@ class BST {
   postOrderTraversal = function () {
     console.log(`Post Order traversal: `);
     let current = this.root;
+    let result = new Array();
 
     if (current) {
       const postOrder = function(node) {
@@ -157,10 +161,41 @@ class BST {
         if (node.right !== null) {
           postOrder(node.right)
         }
-        console.log(node.value);
+        result.push(node.value);
       }
 
-      return postOrder(current);
+      postOrder(current);
+      return result;
+    }
+  }
+
+  findMinHeight(node = this.root) {
+    if (node == null) {
+      return -1;
+    }
+
+    let left = this.findMinHeight(node.left);
+    let right = this.findMinHeight(node.right);
+
+    if (left < right) {
+      return left + 1;
+    } else {
+      return right + 1;
+    }
+  }
+
+  findMaxHeight(node = this.root) {
+    if (node == null) {
+      return -1;
+    }
+
+    let left = this.findMaxHeight(node.left);
+    let right = this.findMaxHeight(node.right);
+
+    if (left > right) {
+      return left + 1;
+    } else {
+      return right + 1;
     }
   }
 }
@@ -181,6 +216,8 @@ console.log(BSTree.findMin());
 console.log(BSTree.findMax());
 console.log(BSTree.isPresent(2));
 console.log(BSTree.isPresent(12));
-BSTree.preOrderTraversal();
-BSTree.inOrderTraversal();
-BSTree.postOrderTraversal();
+console.log(BSTree.preOrderTraversal());
+console.log(BSTree.inOrderTraversal());
+console.log(BSTree.postOrderTraversal());
+console.log(`Min height: ${BSTree.findMinHeight()}`);
+console.log(`Max height: ${BSTree.findMaxHeight()}`);
