@@ -202,7 +202,7 @@ class BST {
 
 const BSTree = new BST();
 
-BSTree.add(20);
+BSTree.add(10);
 BSTree.add(5);
 BSTree.add(12);
 BSTree.add(11);
