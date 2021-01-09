@@ -202,6 +202,33 @@ class BST {
   isBalanced() {
     return (this.findMinHeight() >= this.findMaxHeight() - 1);
   }
+
+  levelOrder() {
+    let result = [];
+    let Q = [];
+
+    if (this.root == null) {
+      return null;
+    }
+
+    Q.push(this.root);
+
+    while(Q.length != 0) {
+      let node = Q.shift();
+
+      result.push(node.value);
+
+      if (node.left != null) {
+        Q.push(node.left);
+      }
+
+      if (node.right != null) {
+        Q.push(node.right);
+      }
+    }
+
+    return result;
+  }
 }
 
 const BSTree = new BST();
@@ -226,3 +253,4 @@ console.log(BSTree.postOrderTraversal());
 console.log(`Min height: ${BSTree.findMinHeight()}`);
 console.log(`Max height: ${BSTree.findMaxHeight()}`);
 console.log(`Is balanced?: ${BSTree.isBalanced()}`);
+console.log(`Level Order: ${BSTree.levelOrder()}`);
