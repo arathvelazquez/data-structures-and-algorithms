@@ -198,6 +198,10 @@ class BST {
       return right + 1;
     }
   }
+
+  isBalanced() {
+    return (this.findMinHeight() >= this.findMaxHeight() - 1);
+  }
 }
 
 const BSTree = new BST();
@@ -221,3 +225,4 @@ console.log(BSTree.inOrderTraversal());
 console.log(BSTree.postOrderTraversal());
 console.log(`Min height: ${BSTree.findMinHeight()}`);
 console.log(`Max height: ${BSTree.findMaxHeight()}`);
+console.log(`Is balanced?: ${BSTree.isBalanced()}`);
