@@ -135,7 +135,7 @@ class LinkedList {
     let node = new Node(element);
 
     if (index > this.length) {
-      console.log(`No se pudo agregar el elemento ${element} en el index ${index}: Overflow`);
+      console.log(`Error: Index ${index} is greater than length list ${this.length}.`);
       return false;
     }
 
@@ -200,6 +200,7 @@ console.log(`Element at index 10: ${linkedList.elementAt(10)}`);
 
 console.log(`Adding element 10 at index 3: ${linkedList.addAt(3, 10)}`);
 console.log(`Adding element 30 at index 0: ${linkedList.addAt(0, 30)}`);
+console.log(`Adding element 20 at index 20: ${linkedList.addAt(7, 20)}`);
 
 console.log(`Print Linked List: ${linkedList.print()}`);
 console.log(`Size: ${linkedList.size()}`);
