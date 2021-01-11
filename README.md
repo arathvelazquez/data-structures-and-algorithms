@@ -1,4 +1,4 @@
-# Interview
+# Data Structures and Algorithms
 
 Resources:
 
