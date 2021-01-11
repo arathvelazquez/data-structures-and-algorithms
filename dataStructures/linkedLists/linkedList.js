@@ -126,6 +126,39 @@ class LinkedList {
 
     return currentNode.value;
   }
+
+  addAt(index, element) {
+
+    let currentNode = this.head;
+    let currentIndex = 0;
+    let previousNode;
+    let node = new Node(element);
+
+    if (index > this.length) {
+      console.log(`No se pudo agregar el elemento ${element} en el index ${index}: Overflow`);
+      return false;
+    }
+
+    if (index === 0) {
+      node.next = this.head;
+      this.head = node;
+      return true;
+    }
+
+    while(currentIndex < index) {
+      currentIndex++;
+      previousNode = currentNode;
+      currentNode = currentNode.next;
+    }
+
+    node.next = currentNode;
+    previousNode.next = node;
+
+    this.length++;
+
+    return true;
+
+  }
 }
 
 const linkedList = new LinkedList();
@@ -164,3 +197,10 @@ console.log(`Element at index 0: ${linkedList.elementAt(0)}`);
 console.log(`Element at index 4: ${linkedList.elementAt(4)}`);
 console.log(`Element at index 5: ${linkedList.elementAt(5)}`);
 console.log(`Element at index 10: ${linkedList.elementAt(10)}`);
+
+console.log(`Adding element 10 at index 3: ${linkedList.addAt(3, 10)}`);
+console.log(`Adding element 30 at index 0: ${linkedList.addAt(0, 30)}`);
+
+console.log(`Print Linked List: ${linkedList.print()}`);
+console.log(`Size: ${linkedList.size()}`);
+console.log(`Head: ${linkedList.getHead()}`);
