@@ -35,6 +35,16 @@ class LinkedList {
     this.length++;
   }
 
+  prepend(value) {
+
+    let node = new Node(value);
+    node.next = this.head;
+    this.head = node;
+
+    return this.head;
+
+  }
+
   remove(element) {
 
     let currentNode = this.head;
@@ -159,6 +169,39 @@ class LinkedList {
     return true;
 
   }
+
+  reverse() {
+
+    if (this.head == null) {
+      return null;
+    }
+
+    let prev = null;
+    let current = this.head;
+    let next = null;
+
+    while (current !== null) {
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+
+    this.head = prev;
+  }
+
+  toArray() {
+    const elements = [];
+
+    let current = this.head;
+
+    while (current !== null) {
+      elements.push(current);
+      current = current.next;
+    }
+
+    return elements;
+  }
 }
 
 const linkedList = new LinkedList();
@@ -205,3 +248,17 @@ console.log(`Adding element 20 at index 20: ${linkedList.addAt(7, 20)}`);
 console.log(`Print Linked List: ${linkedList.print()}`);
 console.log(`Size: ${linkedList.size()}`);
 console.log(`Head: ${linkedList.getHead()}`);
+
+console.log(linkedList.reverse());
+
+console.log(`Print Linked List: ${linkedList.print()}`);
+console.log(`Size: ${linkedList.size()}`);
+console.log(`Head: ${linkedList.getHead()}`);
+
+
+linkedList.prepend(14);
+
+console.log(`Array: `);
+console.log(linkedList.toArray());
+
+console.log(`Print Linked List: ${linkedList.print()}`);
