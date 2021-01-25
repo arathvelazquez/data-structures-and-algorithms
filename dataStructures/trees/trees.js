@@ -7,7 +7,6 @@ class Node {
     this.right = right;
   }
 }
-
 class BST {
 
   constructor () {
@@ -203,7 +202,7 @@ class BST {
     return (this.findMinHeight() >= this.findMaxHeight() - 1);
   }
 
-  levelOrder() {
+  levelOrder() { //BFS
     let result = [];
     let Q = [];
 
@@ -231,26 +230,31 @@ class BST {
   }
 }
 
-const BSTree = new BST();
+module.exports = {
+  Node,
+  BST
+}
 
-BSTree.add(10);
-BSTree.add(5);
-BSTree.add(12);
-BSTree.add(11);
-BSTree.add(1);
-BSTree.add(9);
-BSTree.add(2);
-BSTree.add(17);
+// const BSTree = new BST();
+
+// BSTree.add(10);
+// BSTree.add(5);
+// BSTree.add(12);
+// BSTree.add(11);
+// BSTree.add(1);
+// BSTree.add(9);
+// BSTree.add(2);
+// BSTree.add(17);
 
 
-console.log(BSTree.findMin());
-console.log(BSTree.findMax());
-console.log(BSTree.isPresent(2));
-console.log(BSTree.isPresent(12));
-console.log(BSTree.preOrderTraversal());
-console.log(BSTree.inOrderTraversal());
-console.log(BSTree.postOrderTraversal());
-console.log(`Min height: ${BSTree.findMinHeight()}`);
-console.log(`Max height: ${BSTree.findMaxHeight()}`);
-console.log(`Is balanced?: ${BSTree.isBalanced()}`);
-console.log(`Level Order: ${BSTree.levelOrder()}`);
+// console.log(BSTree.findMin());
+// console.log(BSTree.findMax());
+// console.log(BSTree.isPresent(2));
+// console.log(BSTree.isPresent(12));
+// console.log(BSTree.preOrderTraversal());
+// console.log(BSTree.inOrderTraversal());
+// console.log(BSTree.postOrderTraversal());
+// console.log(`Min height: ${BSTree.findMinHeight()}`);
+// console.log(`Max height: ${BSTree.findMaxHeight()}`);
+// console.log(`Is balanced?: ${BSTree.isBalanced()}`);
+// console.log(`Level Order: ${BSTree.levelOrder()}`);
